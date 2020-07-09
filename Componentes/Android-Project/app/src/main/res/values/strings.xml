@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="Button_Anterior">Anterior</string>
+    <string name="Button_Proximo">Proximo</string>
+</resources>
