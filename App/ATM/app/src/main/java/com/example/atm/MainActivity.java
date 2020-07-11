@@ -1,5 +1,7 @@
 package com.example.atm;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public  void onClick(View view){
+
+                enviarEmail();
+
             }
+
         });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -54,6 +59,33 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    public void enviarEmail(){
+
+        String celular = "tel: 24992119768";
+        String imagem = "https://www.todoestudo.com.br/geografia/montanhas";
+        String endereco = "https://www.google.com/maps/place/Pedra+do+Quitandinha/@-22.5330145,-43.2032637,15z/data=!4m8!1m2!2m1!1scastelinho+google+maps!3m4!1s0x99085148209503:0x9922dd50b7adbce2!8m2!3d-22.5274676!4d-43.2080913";
+
+        //Intents defineações
+        //Neste caso ela abre outro app (Ligações)
+        //Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(celular));
+
+        //Abre uma imagem e ou links
+        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(imagem));
+        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(endereco));
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lucasdutrabraz@gmail.com", "lucasbrazdutra@gmail.com", "luksafadinho@gmail.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Contato pelo app");
+        intent.putExtra(Intent.EXTRA_TEXT, "A coisa tá automática C-A-R-A-L-H-O!");
+
+        //Outros tipos de arquivos em "mime types list"
+        intent.setType("message/rfc822");
+
+        startActivity(Intent.createChooser(intent, "Compartilhar"));
+
     }
 
     @Override
